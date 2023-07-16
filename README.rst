@@ -3,7 +3,7 @@ Welcome to the SparkKG-ML Documentation
 
 Welcome to the documentation for **sparkKG-ML**, a Python library designed to facilitate machine learning with Spark on semantic web and knowledge graph data. 
 
-sparkKG-ML is specifically built to bridge the gap between the semantic web data model and the powerful distributed computing capabilities of Apache Spark. By leveraging the flexibility of semantic web and the scalability of Spark, sparkKG-ML empowers you to extract meaningful insights and build robust machine learning models on semantic web and knowledge graph datasets.
+SparkKG-ML is specifically built to bridge the gap between the semantic web data model and the powerful distributed computing capabilities of Apache Spark. By leveraging the flexibility of semantic web and the scalability of Spark, sparkKG-ML empowers you to extract meaningful insights and build robust machine learning models on semantic web and knowledge graph datasets.
 
 You can find the detailed documentaion of sparkKG-ML `here <https://sparkkgml.readthedocs.io/en/latest/index.html#>`_. This documentation serves as a comprehensive guide to understanding and effectively utilizing sparkKG-ML. Here, you will find detailed explanations of the library's core concepts, step-by-step tutorials to get you started, and a rich collection of code examples to illustrate various use cases.
 
