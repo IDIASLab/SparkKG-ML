@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A Python Library to Facilitate end-to-end Machine Learning over Knowledge Graphs on Apache Spark"
 authors = ["IDIAS Lab"]
 license = "Apache License 2.0"
-readme = "README.md"
+readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "^3.9"
