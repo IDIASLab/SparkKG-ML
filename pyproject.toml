@@ -8,8 +8,16 @@ readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pyspark = "^3.4.1"
+sparql-dataframe = "^0.4"
+kgextension = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
+myst-nb = {version = "^0.17.2", python = "^3.9"}
+sphinx-autoapi = "^2.1.1"
+sphinx-rtd-theme = "^1.2.2"
+sphinx-collapse = "^0.1.2"
+sphinx-design = "^0.4.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
