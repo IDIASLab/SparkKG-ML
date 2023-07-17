@@ -15,7 +15,7 @@ To install SparkKG-ML using `pip`, follow these steps:
 
    .. code-block:: bash
 
-      pip install Sparkkgml
+      pip install sparkkgml
 
    This will download and install SparkKG-ML and its dependencies.
 
@@ -29,7 +29,7 @@ To install SparkKG-ML from the source code, follow these steps:
 
    .. code-block:: bash
 
-      git clone https://github.com/bedirhangergin/sparkkgml.git
+      git clone https://github.com/IDIASLab/SparkKG-ML
 
    This will create a local copy of the SparkKG-ML source code on your machine.
 
@@ -37,7 +37,7 @@ To install SparkKG-ML from the source code, follow these steps:
 
    .. code-block:: bash
 
-      cd Sparkkgml
+      cd sparkkgml
 
 3. (Optional) If you want to install a specific release or branch, use the following command:
 
