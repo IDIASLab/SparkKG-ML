@@ -42,7 +42,7 @@ We already have a dataframe and features dictionary from last example:
   .. code-block:: python
   
     # Import the required libraries
-    from sparkrdfx.feature_engineering import FeatureEngineering
+    from sparkkgml.feature_engineering import FeatureEngineering
 
     # Create an instance of FeatureCollection
     featureEngineeringObject=FeatureEngineering()

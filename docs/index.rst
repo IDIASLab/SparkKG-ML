@@ -44,7 +44,7 @@ We hope this documentation proves to be a valuable resource as you explore the c
    featureEngineering
    vectorization
    featureSelection
-   featureAugmentation
+   dataAugmentation
    semantification
 
 .. toctree::

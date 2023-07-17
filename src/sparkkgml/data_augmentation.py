@@ -14,7 +14,7 @@
 
 import pandas as pd
 import re
-from sparkrdfx.data_acquisition import KgQuery
+from sparkkgml.data_acquisition import DataAcquisition
 from kgextension.endpoints import DBpedia
 from pyspark.sql import SparkSession
 
