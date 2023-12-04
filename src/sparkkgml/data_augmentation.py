@@ -95,7 +95,7 @@ def spark_dbpedia_lookup_linker(sparkDataFrame, column, new_attribute_name='new_
     
     spark = SparkSession.builder.getOrCreate()
     
-    DataAcquisitionObject=DataAcquisition()
+    DataAcquisitionObject=DataAcquisition(spark)
     
     pandasDf=dbpedia_lookup_linker(sparkDataFrame.toPandas(), column, new_attribute_name, progress, base_url, max_hits, query_class, lookup_api, caching)
     
@@ -154,7 +154,7 @@ def spark_specific_relation_generator(sparkDataFrame, columns, endpoint=DBpedia,
     
     spark = SparkSession.builder.getOrCreate()
     
-    DataAcquisitionObject=DataAcquisition()
+    DataAcquisitionObject=DataAcquisition(spark)
 
     pandasDf=specific_relation_generator(sparkDataFrame.toPandas(), columns, endpoint, uri_data_model, progress, direct_relation, hierarchy_relation, max_hierarchy_depth, prefix_lookup, caching)
     

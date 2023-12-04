@@ -12,7 +12,7 @@
 # In[32]:
 
 
-from pyspark.sql import SparkSession
+#from pyspark.sql import SparkSession
 from pyspark.ml.feature import StringIndexer,Tokenizer,StopWordsRemover,Word2Vec,VectorAssembler
 from pyspark.sql.types import StringType,IntegerType,FloatType,DoubleType,LongType,BooleanType
 #from pyspark.sql.functions import collect_list,size,col,explode_outer
@@ -38,10 +38,12 @@ class Vectorization:
 
     """
 
-    global spark
-    spark = SparkSession.builder.getOrCreate()
+    #sparkSession = None 
+    #spark = SparkSession.builder.getOrCreate()
      
     def __init__(self):
+
+        #Vectorization.sparkSession=sparkSession
         self._entityColumn = ''
         self._stopWordsRemover=True        
         self._word2vecSize=2
@@ -206,15 +208,14 @@ class Vectorization:
 
                     #newFeatureColumnName = columnName +"(Word2Vec)"
                     
-                    tokenizer = Tokenizer(inputCol=columnName, outputCol="words")
+                    tokenizer = Tokenizer(inputCol=columnName, outputCol=columnName+"words")
                     df2 = tokenizer.transform(df2)
-                    tempColumnName="words"
+                    tempColumnName=columnName+"words"
                     
                     if self._stopWordsRemover==True:
-
-                        remover = StopWordsRemover(inputCol="words", outputCol="filtered")
+                        remover = StopWordsRemover(inputCol=columnName+"words", outputCol=columnName+"filtered")
                         df2 = remover.transform(df2)
-                        tempColumnName='filtered'
+                        tempColumnName=columnName+'filtered'
 
                     word2vec = Word2Vec(inputCol=tempColumnName, outputCol="output", minCount=self._word2vecMinCount, vectorSize=self._word2vecSize)
                     word2vecModel = word2vec.fit(df2)
@@ -233,15 +234,15 @@ class Vectorization:
                         .withColumn("sentences", concat_ws(". ", col(columnName))) \
                         .select(self._entityColumn, "sentences")
                         
-                    tokenizer = Tokenizer().setInputCol("sentences").setOutputCol("words")
-                    tokenizedDf = tokenizer.transform(dfCollapsedTwoColumnsNullsReplaced).select(self._entityColumn, "words")
-                    tempColumnName='words'    
+                    tokenizer = Tokenizer().setInputCol("sentences").setOutputCol(columnName+"words")
+                    tokenizedDf = tokenizer.transform(dfCollapsedTwoColumnsNullsReplaced).select(self._entityColumn, columnName+"words")
+                    tempColumnName=columnName+'words'    
                         
                     if self._stopWordsRemover==True:
 
-                        remover = StopWordsRemover().setInputCol("words").setOutputCol("filtered")
-                        tokenizedDf = remover.transform(tokenizedDf).select(self._entityColumn, "filtered")
-                        tempColumnName='filtered'
+                        remover = StopWordsRemover().setInputCol(columnName+"words").setOutputCol(columnName+"filtered")
+                        tokenizedDf = remover.transform(tokenizedDf).select(self._entityColumn, columnName+"filtered")
+                        tempColumnName=columnName+'filtered'
                         
                     word2vec = Word2Vec(inputCol=tempColumnName, outputCol="output", minCount=self._word2vecMinCount, vectorSize=self._word2vecSize)    
                     word2vecModel = word2vec.fit(tokenizedDf)

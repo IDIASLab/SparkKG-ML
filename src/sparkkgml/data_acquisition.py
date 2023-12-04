@@ -7,7 +7,7 @@
 #import findspark
 #findspark.find()
 #findspark.init()
-from pyspark.sql import SparkSession
+#from pyspark.sql import SparkSession
 
 
 # In[2]:
@@ -15,6 +15,10 @@ from pyspark.sql import SparkSession
 
 import sparql_dataframe
 import pandas as pd
+from rdflib import Graph
+from io import StringIO
+import csv
+
 
 
 # In[14]:
@@ -37,15 +41,17 @@ class DataAcquisition:
 
     """
 
-    global spark
-    spark = SparkSession.builder.getOrCreate()
+    sparkSession = None
+    #spark = SparkSession.builder.getOrCreate()
      
-    def __init__(self):
+    def __init__(self, sparkSession):
+
+        DataAcquisition.sparkSession = sparkSession
    
         self._endpoint = ''
         self._query = ''
         
-       
+        self._handleNullValues='True'
         self._amputationMethod='nullDrop' # nullReplacement|nullDropp
         self._rowNullDropPercent=100 # it is percent %
         self._columnNullDropPercent=0 # it is percent %
@@ -158,23 +164,128 @@ class DataAcquisition:
         
         #query from sparql endpoint and then create Pandas dataframe 
         pandasDataFrame=(sparql_dataframe.get(endpoint, query))
-        #create Spark Dataframe from Pandas Dataframe, if there is Null values, go to handling methods
+
+
+        #create Spark Dataframe from Pandas Dataframe,
+        # if Null values want to be handled, enter here
+        if self._handleNullValues=='True':
+            if self._amputationMethod=='nullDrop':
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+            
+            if self._amputationMethod=='nullReplacement':
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+                
+         
+        #if there is Null values and raise error, force to go to handling methods
         try:
-            sparkDataFrame= spark.createDataFrame(pandasDataFrame)
+            sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(pandasDataFrame)
         except TypeError as error:
             print(error)
             print('Null values exist, handling methods will be applied')
                     
             if self._amputationMethod=='nullDrop':
-                sparkDataFrame= spark.createDataFrame(self.nullDrop(pandasDataFrame))
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
             
             if self._amputationMethod=='nullReplacement':
-                sparkDataFrame= spark.createDataFrame(self.nullReplacement(pandasDataFrame))
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
                 
             
         return sparkDataFrame
+
+
+    def query_local_rdf(self, rdf_file_path, rdf_format, query):
+        """
+            Query RDF data stored locally and convert results to a Spark DataFrame.
+        
+            This function loads RDF data from a specified file in a given format, executes
+            a SPARQL query, and converts the query results into a Spark DataFrame. The RDF
+            data is first loaded into an RDFlib Graph object and then queried using the
+            provided SPARQL query. The query results are processed as follows:
+            
+            1. The query results are converted to a list of dictionaries.
+            2. A CSV representation of the results is created using the csv.DictWriter.
+            3. The CSV data is read into a Pandas DataFrame.
+            4. Depending on the 'amputationMethod' attribute of the 'DataAcquisition' class,
+               null values in the Pandas DataFrame may be handled. If 'amputationMethod' is
+               'nullDrop', null values are dropped; if 'amputationMethod' is 'nullReplacement',
+               null values are replaced based on the defined strategy.
+            5. Finally, a Spark DataFrame is created from the Pandas DataFrame.
+        
+            Args:
+                self (object): The instance of the class calling this method.
+                rdf_file_path (str): The path to the RDF data file.
+                rdf_format (str): The format of the RDF data (e.g., "turtle", "xml", "n3").
+                query (str): The SPARQL query to execute on the RDF data.
+        
+            Returns:
+                pyspark.sql.DataFrame: A Spark DataFrame containing the query results.
+        
+            Raises:
+                ValueError: If any of the required parameters (rdf_file_path, rdf_format, or query)
+                            is missing or empty.
+            
+            Note:
+                - This function assumes the existence of a SparkSession in the 'DataAcquisition'
+                  class context.
+                - Handling of null values is based on the 'amputationMethod' attribute of the
+                  'DataAcquisition' class.
+
+        """
+        if not rdf_file_path or not rdf_format or not query:
+            raise ValueError("All required parameters (rdf_file_path, rdf_format, and query) must be provided.")
+    
+        # Load RDF data from the specified file in the given format
+        graph = Graph()
+        graph.parse(rdf_file_path, format=rdf_format, publicID=" ")
     
     
+        results = graph.query(query)
+        
+        # Convert query results to a list of dictionaries
+        query_results = []
+        fieldnames = [str(var) for var in results.vars]  # Get field names from results.vars
+        for row in results:
+            result_dict = dict(zip(fieldnames, row))
+            query_results.append(result_dict)
+    
+        # Create a StringIO object to hold the CSV data
+        csv_data = StringIO()
+        # Create a CSV writer
+        csv_writer = csv.DictWriter(csv_data, fieldnames=fieldnames)
+        csv_writer.writeheader()
+        csv_writer.writerows(query_results)
+        csv_data.seek(0)
+        
+        # Read the CSV data from StringIO into a Pandas DataFrame
+        pandasDataFrame = pd.read_csv(csv_data)
+
+        #create Spark Dataframe from Pandas Dataframe,
+        # if Null values wnant to be handled beforehand, enter here
+        if self._handleNullValues=='True':
+            if self._amputationMethod=='nullDrop':
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+            
+            if self._amputationMethod=='nullReplacement':
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+                
+        
+        #if there is Null values and rreaise error, force to go to handling methods
+        try:
+            sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(pandasDataFrame)
+        except TypeError as error:
+            print(error)
+            print('Null values exist, handling methods will be applied')
+                    
+            if self._amputationMethod=='nullDrop':
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+            
+            if self._amputationMethod=='nullReplacement':
+                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+    
+        return sparkDataFrame
+
+
+        
     def nullReplacement(self, df):
         """Apply null replacement methods on variables with NaN values in a DataFrame.
     

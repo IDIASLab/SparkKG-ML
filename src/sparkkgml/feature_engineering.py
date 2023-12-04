@@ -12,7 +12,7 @@
 # In[ ]:
 
 
-from pyspark.sql import SparkSession
+#from pyspark.sql import SparkSession
 #from pyspark.sql.functions import collect_list,size,col
 from pyspark.sql.functions import *
 
@@ -32,11 +32,12 @@ class FeatureEngineering:
 
     """
 
-    global spark
-    spark = SparkSession.builder.getOrCreate()
+    #sparkSession = None
+    #spark = SparkSession.builder.getOrCreate()
      
     def __init__(self):
-        
+
+        #FeatureEngineering.sparkSession=sparkSession
         self._entityColumn = ''
         
     
