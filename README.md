@@ -115,7 +115,7 @@ The ``getDataFrame`` function will query the data from the specified SPARQL endp
 Evaluation
 ==========
 
-To evaluate SparkKG-ML, we investigated various factors to understand their impact on overall runtime performance, comparing the results with an existing framework. The experiment folder contains detailed information for those interested, covering not only the general analysis but also the performance of our library's additional features, including both runtime efficiency and overall performance metrics.
+To evaluate SparkKG-ML, we investigated various factors to understand their impact on overall runtime performance, comparing the results with an existing framework. The [experiments](https://github.com/IDIASLab/SparkKG-ML/tree/main/experiments) folder contains detailed information for those interested, covering not only the general analysis but also the performance of our library's additional features, including both runtime efficiency and overall performance metrics.
 
 License
 =========
