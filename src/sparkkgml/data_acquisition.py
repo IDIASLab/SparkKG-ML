@@ -28,7 +28,7 @@ class DataAcquisition:
     #sparkSession = None
     #spark = SparkSession.builder.getOrCreate()
      
-    def __init__(self, spark_session: SparkSession = None):
+    def __init__(self, sparkSession: SparkSession = None):
         """
             Initializes the DataAcquisition class.
 
@@ -36,12 +36,12 @@ class DataAcquisition:
                 spark_session (SparkSession, optional): The Spark session for working with Spark DataFrame.
                     If not provided, a new session will be created using SparkSession.builder.getOrCreate().
         """
-        if spark_session is None:
+        if sparkSession is None:
             # If no custom SparkSession is provided, create a new one.
-            self.spark_session = SparkSession.builder.getOrCreate()
+            self.sparkSession = SparkSession.builder.getOrCreate()
         else:
             # Use the provided SparkSession.
-            self.spark_session = spark_session
+            self.sparkSession = sparkSession
    
         self._endpoint = ''
         self._query = ''
@@ -165,24 +165,24 @@ class DataAcquisition:
         # if Null values want to be handled, enter here
         if self._handleNullValues=='True':
             if self._amputationMethod=='nullDrop':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
             
             if self._amputationMethod=='nullReplacement':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
                 
          
         #if there is Null values and raise error, force to go to handling methods
         try:
-            sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(pandasDataFrame)
+            sparkDataFrame= self.sparkSession.createDataFrame(pandasDataFrame)
         except TypeError as error:
             print(error)
             print('Null values exist, handling methods will be applied')
                     
             if self._amputationMethod=='nullDrop':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
             
             if self._amputationMethod=='nullReplacement':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
                 
             
         return sparkDataFrame
@@ -258,24 +258,24 @@ class DataAcquisition:
         # if Null values wnant to be handled beforehand, enter here
         if self._handleNullValues=='True':
             if self._amputationMethod=='nullDrop':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
             
             if self._amputationMethod=='nullReplacement':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
                 
         
         #if there is Null values and rreaise error, force to go to handling methods
         try:
-            sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(pandasDataFrame)
+            sparkDataFrame= self.sparkSession.createDataFrame(pandasDataFrame)
         except TypeError as error:
             print(error)
             print('Null values exist, handling methods will be applied')
                     
             if self._amputationMethod=='nullDrop':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullDrop(pandasDataFrame))
             
             if self._amputationMethod=='nullReplacement':
-                sparkDataFrame= DataAcquisition.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
+                sparkDataFrame= self.sparkSession.createDataFrame(self.nullReplacement(pandasDataFrame))
     
         return sparkDataFrame
 
