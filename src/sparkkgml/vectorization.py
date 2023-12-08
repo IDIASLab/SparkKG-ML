@@ -1,49 +1,41 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[31]:
-
-
-#import findspark
-#findspark.find()
-#findspark.init()
-
-
-# In[32]:
-
-
-#from pyspark.sql import SparkSession
 from pyspark.ml.feature import StringIndexer,Tokenizer,StopWordsRemover,Word2Vec,VectorAssembler
 from pyspark.sql.types import StringType,IntegerType,FloatType,DoubleType,LongType,BooleanType
-#from pyspark.sql.functions import collect_list,size,col,explode_outer
 from pyspark.sql.functions import *
-
-
-# In[33]:
 
 
 class Vectorization:
     
     """
-    A class for data preprocessing tasks such as null handling, feature extraction, and vectorization.
+    A class designed for feature engineering and vectorization of data in Spark DataFrames.
 
     Attributes:
-        _entityColumn (str): The name of the entity column.
-        _labelColumn (str): The name of the label column.
-        _features (list): A list of features containing information about each column.
-        _stopWordsRemover (bool): A flag indicating whether to remove stop words during word embedding.
+        _entityColumn (str): The name of the entity column used for joining and indexing.
+        _stopWordsRemover (bool): A flag indicating whether to remove stop words during text processing.
         _word2vecSize (int): The size of the word vectors in Word2Vec embedding.
         _word2vecMinCount (int): The minimum count of words required for Word2Vec embedding.
         _digitStringStrategy (str): The strategy for digitizing string values ('index' or 'hash').
 
+    Methods:
+        get_entityColumn(): Getter method for the entity column.
+        get_word2vecSize(): Getter method for the Word2Vec vector size.
+        get_stopWordsRemover(): Getter method for the stop words remover flag.
+        get_word2vecMinCount(): Getter method for the Word2Vec minimum count.
+        get_digitStringStrategy(): Getter method for the digit string strategy.
+        set_entityColumn(entityColumn): Setter method for the entity column.
+        set_word2vecSize(word2vecSize): Setter method for the Word2Vec vector size.
+        set_word2vecMinCount(word2vecMinCount): Setter method for the Word2Vec minimum count.
+        set_stopWordsRemover(stopWordsRemover): Setter method for the stop words remover flag.
+        set_digitStringStrategy(digitStringStrategy): Setter method for the digit string strategy.
+        vectorize(df2, features): Applies vectorization transformations to specified columns in the DataFrame based on the provided features.
+
+    Note:
+        The `vectorize` method iterates over the specified columns, applies appropriate transformations based on data type
+        and features, and returns a DataFrame with the vectorized features.
+
     """
 
-    #sparkSession = None 
-    #spark = SparkSession.builder.getOrCreate()
-     
     def __init__(self):
 
-        #Vectorization.sparkSession=sparkSession
         self._entityColumn = ''
         self._stopWordsRemover=True        
         self._word2vecSize=2

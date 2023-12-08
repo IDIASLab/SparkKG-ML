@@ -1,14 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[30]:
-
-
 from rdflib import Graph, Literal, Namespace, URIRef,BNode
 from datetime import datetime
-
-
-# In[2]:
 
 
 class Semantification:

@@ -1,18 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-#import findspark
-#findspark.find()
-#findspark.init()
-#from pyspark.sql import SparkSession
-
-
-# In[2]:
-
-
 import sparql_dataframe
 import pandas as pd
 from rdflib import Graph
@@ -21,13 +6,11 @@ import csv
 
 
 
-# In[14]:
-
 
 class DataAcquisition:
     
     """
-    A class for knowdleg graph query and data preprocessing tasks such as null handling and null Drop.
+    A class for knowledge graph query and data preprocessing tasks such as null handling and null Drop.
 
     Attributes:
         _endpoint (str): The endpoint for retrieving data.

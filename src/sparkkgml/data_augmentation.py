@@ -1,25 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[17]:
-
-
-#import findspark
-#findspark.find()
-#findspark.init()
-
-
-# In[7]:
-
-
 import pandas as pd
 import re
 from sparkkgml.data_acquisition import DataAcquisition
 from kgextension.endpoints import DBpedia
 from pyspark.sql import SparkSession
-
-
-# In[8]:
 
 
 def clean_column_names(df):
@@ -51,8 +34,6 @@ def clean_column_names(df):
     
     return df_cleaned
 
-
-# In[9]:
 
 
 def spark_dbpedia_lookup_linker(sparkDataFrame, column, new_attribute_name='new_link', progress=True, 
@@ -103,8 +84,6 @@ def spark_dbpedia_lookup_linker(sparkDataFrame, column, new_attribute_name='new_
     
     return sparkDataFrame2
 
-
-# In[10]:
 
 
 def spark_specific_relation_generator(sparkDataFrame, columns, endpoint=DBpedia, uri_data_model=False, progress=True, 
@@ -161,10 +140,4 @@ def spark_specific_relation_generator(sparkDataFrame, columns, endpoint=DBpedia,
     sparkDataFrame2= spark.createDataFrame(clean_column_names(DataAcquisitionObject.nullDrop(pandasDf)))
     
     return sparkDataFrame2
-
-
-# In[ ]:
-
-
-
 

@@ -1,43 +1,23 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[81]:
-
-
-#import findspark
-#findspark.find()
-#findspark.init()
-
-
-# In[ ]:
-
-
-#from pyspark.sql import SparkSession
-#from pyspark.sql.functions import collect_list,size,col
 from pyspark.sql.functions import *
-
-
-# In[88]:
-
 
 class FeatureEngineering:
     
     """
-    A class for feature collection.
+    A class for extracting features and their descriptions from a Spark DataFrame.
 
     Attributes:
-       
         _entityColumn (str): The name of the entity column.
-            
+
+    Methods:
+        get_entityColumn(): Getter method for the entity column.
+        set_entityColumn(entityColumn): Setter method for the entity column.
+        getFeatures(df): Extracts features and their descriptions from a DataFrame.
 
     """
 
-    #sparkSession = None
-    #spark = SparkSession.builder.getOrCreate()
      
     def __init__(self):
 
-        #FeatureEngineering.sparkSession=sparkSession
         self._entityColumn = ''
         
     

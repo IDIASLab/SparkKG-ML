@@ -1,24 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[18]:
-
-
-#import findspark
-#findspark.find()
-#findspark.init()
-#from pyspark.sql import SparkSession
-
-
-# In[ ]:
-
-
 from pyspark.ml.stat import Correlation
 from pyspark.ml.feature import VectorAssembler
 import numpy as np
-
-
-# In[19]:
 
 
 def correlation_feature_selection(df, threshold, features_arr):
@@ -48,7 +30,6 @@ def correlation_feature_selection(df, threshold, features_arr):
             5. Return the input DataFrame with only the selected non-correlated feature columns.
     """
     
-    #spark = SparkSession.builder.getOrCreate()
     
     assembler = VectorAssembler(inputCols=features_arr, outputCol="features")
     df_assembled = assembler.transform(df).select("features")
