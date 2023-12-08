@@ -24,12 +24,23 @@ class DataAcquisition:
 
     """
 
-    sparkSession = None
+    #sparkSession = None
     #spark = SparkSession.builder.getOrCreate()
      
-    def __init__(self, sparkSession):
+    def __init__(self, spark_session: SparkSession = None):
+        """
+            Initializes the DataAcquisition class.
 
-        DataAcquisition.sparkSession = sparkSession
+            Parameters:
+                spark_session (SparkSession, optional): The Spark session for working with Spark DataFrame.
+                    If not provided, a new session will be created using SparkSession.builder.getOrCreate().
+        """
+        if spark_session is None:
+            # If no custom SparkSession is provided, create a new one.
+            self.spark_session = SparkSession.builder.getOrCreate()
+        else:
+            # Use the provided SparkSession.
+            self.spark_session = spark_session
    
         self._endpoint = ''
         self._query = ''
