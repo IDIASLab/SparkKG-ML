@@ -15,8 +15,8 @@ Datesets
 =========
 
 Two real–world datasets were used: 
-1) **Linked Movie Database (LMDB):** An openly accessible knowledge graph of facts about 38,000 movies (including title, runtime, actors, genres, producers, and country of origin).
-2) **IMDb Non–Commercial Dataset:** Comprises facts (i.e., title, year, runtime, and genres) for 10, 263, 447 movies.
+1) **[Linked Movie Database (LMDB)](https://old.datahub.io/dataset/linkedmdb):** An openly accessible knowledge graph of facts about 38,000 movies (including title, runtime, actors, genres, producers, and country of origin).
+2) **[IMDb Non–Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/#titlebasicstsvgz):** Comprises facts (i.e., title, year, runtime, and genres) for 10, 263, 447 movies.
 
 Additionally a synthetic datasets was used, initially created for the evaluation of DistRDF2ML. Specifically, the number of movies is exponentially increased, while the resultset size and feature density remain unchanged.
 
