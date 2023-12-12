@@ -3,7 +3,7 @@
 Semantification
 ==================
 
-The Semantification module in RDFX provides functionality to transform machine learning results into RDF data. It plays a crucial role in completing the end-to-end process of a machine learning workflow and is an essential step in the RDFX library.
+The Semantification module in SparkKG-ML provides functionality to transform machine learning results into RDF data. It plays a crucial role in completing the end-to-end process of a machine learning workflow and is an essential step in the SparkKG-ML library.
 
 Machine learning models often produce classification results containing predictions, associated data, model names, and other relevant information. The Semantification module takes these machine learning results and generates a Turtle file based on a configured ontology. This process enhances the interpretability, integration, and sharing of the machine learning results by representing them in a standardized RDF format.
 
@@ -23,8 +23,11 @@ To illustrate the usage of the Semantification module, consider the following co
     semantificationObject=Semantification()
 
     # Perform a classification task and obtain the prediction result in a dataframe
+    # ...
+    # ...
     # Prepare the necessary information for semantification
-    semantificationObject.semantify(df, uri1='uri', label1='label', prediction1='prediction', dest='experiment.ttl')
+
+    semantificationObject.semantify(df, namespace="http://example.com/" , exp_uri='id', exp_label='label', exp_prediction='prediction', dest='experiment.ttl')
 
 In the example above, we assume that we first obtain the prediction result of a classification task using a trained machine learning model, stored in the dataFrame ``df``. 
 
@@ -32,5 +35,5 @@ Next, we use the ``semantify`` function to generate RDF data based on the config
 
 Finally, we save the semantified data as a Turtle file, specifying the file name as "experiment.ttl". The resulting Turtle file can then be used for further analysis, integration with existing RDF datasets, or sharing with other systems that support RDF processing.
 
-Please refer to the RDFX API documentation for more detailed information on the available functions, configuration options, and usage guidelines.
+Please refer to the SparkKG-ML API documentation for more detailed information on the available functions, configuration options, and usage guidelines.
 

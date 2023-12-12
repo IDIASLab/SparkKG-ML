@@ -10,7 +10,7 @@ The `Data Augmentation` module in the SparkKG-ML library is based on the `kgexte
 
 By leveraging the `Data Augmentation` module, users can seamlessly integrate their data processing workflows with public knowledge graphs such as DBpedia, WikiData, or the EU Open Data Portal. The module provides functionalities for linking datasets to any Linked Open Data (LOD) source, generating new features from LOD sources, performing hierarchy-based feature selection algorithms, and integrating features from different sources.
 
-The combination of RDFX and Spark empowers users to enhance their data analysis and machine learning tasks by incorporating contextual information from public knowledge graphs. It opens up new opportunities for data integration, feature engineering, and knowledge-driven insights.
+The combination of SparkKG-ML and Spark empowers users to enhance their data analysis and machine learning tasks by incorporating contextual information from public knowledge graphs. It opens up new opportunities for data integration, feature engineering, and knowledge-driven insights.
 
 Usage Examples
 --------------

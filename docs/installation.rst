@@ -57,7 +57,7 @@ To install SparkKG-ML from the source code, follow these steps:
 
 5. Once the installation is complete, you can import SparkKG-ML into your Python projects and start using it for machine learning on semantic web and knowledge graph data.
 
-Congratulations! You have successfully installed the sparkRDFx library. You are now ready to explore the capabilities of sparkRDFx and leverage its machine learning functionalities.
+Congratulations! You have successfully installed the SparkKG-ML library. You are now ready to explore the capabilities of SparkKG-ML and leverage its machine learning functionalities.
 
 For more details on how to use SparkKG-ML, please refer to the documentation.
 

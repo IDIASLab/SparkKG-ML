@@ -2,7 +2,8 @@
 
 Data Acquisition
 ==================
-This use case demonstrates how to retrieve data from a SPARQL endpoint and convert it into a Spark DataFrame using the ``getDataFrame`` function in RDFX.
+This use case demonstrates how to retrieve data from a SPARQL endpoint and convert it into a Spark DataFrame using the ``getDataFrame`` function in SparkKG-ML.
+Additionaly, you also have the option to utilize ``query_local_rdf`` for querying a local RDF file.
 
 The ``getDataFrame`` function retrieves data from a SPARQL endpoint and converts it into a Spark DataFrame. It follows the following steps:
 
@@ -92,7 +93,7 @@ The RDFX library provides two methods for handling null values in data: `nullRep
 - ``nullDrop()``: This method drops columns and rows from a DataFrame based on specified thresholds for null values.
 
 
-In this example, we will demonstrate how to retrieve data from a SPARQL endpoint and apply null value handling methods using the RDFX library.
+In this example, we will demonstrate how to retrieve data from a SPARQL endpoint and apply null value handling methods using the SparkKG-ML library.
 
 Scenario 1: Null Drop
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -155,7 +156,7 @@ In this scenario, we will use the ``nullReplacement`` method with custom values 
 Additional Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Customizing the behavior of the ``nullReplacement`` and ``nullDrop`` methods in the RDFX class:
+Customizing the behavior of the ``nullReplacement`` and ``nullDrop`` methods in the Data Acquisition class:
 
 - ``nullReplacement``: You can change the following variables to customize the behavior:
 
@@ -174,7 +175,7 @@ Adjust these variables according to your specific requirements to control the nu
 Conclusion
 ----------------------------------
 
-The RDFX library provides flexible methods for handling null values in data. By using the ``nullReplacement`` and ``nullDrop`` methods, you can preprocess your data effectively and ensure quality in your analysis.
+The SparkKG-ML library provides flexible methods for handling null values in data. By using the ``nullReplacement`` and ``nullDrop`` methods, you can preprocess your data effectively and ensure quality in your analysis.
 
 For more detailed information on each method and its parameters, please refer to the API documentation.
 
