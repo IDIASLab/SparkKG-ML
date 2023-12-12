@@ -10,7 +10,7 @@ Let's start with a basic example, we will retrieve data from a SPARQL endpoint a
    # Import the required libraries
    from sparkkgml.data_acquisition import DataAcquisition
 
-   # Create an instance of KgQuery
+   # Create an instance of DataAcquisition
    DataAcquisitionObject=DataAcquisition()
 
    # Specify the SPARQL endpoint and query
