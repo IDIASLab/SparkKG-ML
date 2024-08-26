@@ -46,6 +46,8 @@ We hope this documentation proves to be a valuable resource as you explore the c
    featureSelection
    dataAugmentation
    semantification
+   kg 
+   motifWalks
 
 .. toctree::
    :maxdepth: 1
