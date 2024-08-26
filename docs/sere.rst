@@ -6,18 +6,18 @@ Introduction
 \ **S**\ calable and Distributed Framework for Unsupervised 
 \ **E**\ mbeddings Computation on La\ **R**\ ge-scale Knowl\ **E**\ dge Graphs (``SERE``)
 
-``SERE`` is a scalable and distributed embedding framework designed for large-scale Knowledge Graphs (KGs), leveraging the distributed computing capabilities of Apache Spark. The framework enables the extraction of walks over a knowledge graph and then creates embeddings from these walks, fully implemented in Spark, making them ready for integration into machine learning (ML) pipelines.
+``SERE`` is a scalable and distributed embedding framework designed for large-scale KGs (KGs), leveraging the distributed computing capabilities of Apache Spark. The framework enables the extraction of walks over a KG and then creates embeddings from these walks, fully implemented in Spark, making them ready for integration into Machine Learning (ML) pipelines.
 
-Knowledge Graphs (KGs) store RDF data in a graph format, where entities are linked by relations. To compute RDF data embeddings, the graph representation is converted into sequences of entities. These sequences are processed by neural language models, such as Word2Vec, treating them like sentences composed of words. This allows the model to represent each entity in the RDF graph as a vector of numerical values in a latent feature space.
+KGs store RDF data in a graph format, where entities are linked by relations. To compute RDF data embeddings, the graph representation is converted into sequences of entities. These sequences are processed by neural language models, such as Word2Vec, treating them like sentences composed of words. This allows the model to represent each entity in the RDF graph as a vector of numerical values in a latent feature space.
 
-``SERE`` allows the computation of embeddings over very large KGs in scenarios where such embeddings were previously not feasible due to a significantly lower runtime and improved memory requirements. ``SERE`` is open-source, well-documented, and fully integrated into the SparkKG-ML Python library, which offers end-to-end machine learning pipelines over semantic data stored in KGs directly in Python.
+``SERE`` allows the computation of embeddings over very large KGs in scenarios where such embeddings were previously not feasible due to a significantly lower runtime and improved memory requirements. ``SERE`` is open-source, well-documented, and fully integrated into the SparkKG-ML Python library, which offers end-to-end ML pipelines over semantic data stored in KGs directly in Python.
 
 Overview of SERE
 ---------------------
 
-1. **Knowledge Graph Representation**:
+1. **KG Representation**:
    
-   Knowledge Graphs (KGs) store RDF data in a graph format, where entities are linked by relations. ``SERE`` provides a ``KG`` module with functionalities to manipulate and interact with RDF-based Knowledge Graphs using Apache Spark and GraphFrames. The KG class allows users to parse RDF data, create vertices and edges, and construct a GraphFrame for further analysis. There are two methods to acquire RDF data from a KG:
+   ``SERE`` provides a ``KG`` module with functionalities to manipulate and interact with RDF-based KGs using Apache Spark and GraphFrames. The KG class allows users to parse RDF data, create vertices and edges, and construct a GraphFrame for further analysis. There are two methods to acquire RDF data from a KG:
    
    - **Local Storage**: If the KG is stored locally as a flat file, provide the file path.
    - **Remote Access**: For remote KGs, provide a SPARQL Endpoint to access the data.
@@ -47,4 +47,4 @@ Overview of SERE
 Conclusion
 ----------
 
-``SERE`` efficiently processes large-scale KGs by exploiting Spark's distributed computing capabilities. This framework enables the computation of embeddings in scenarios where it was previously infeasible due to large data volumes, reduced runtime, and improved memory requirements. The embeddings produced by ``SERE`` are fully integrated into the SparkKG-ML library, supporting end-to-end machine learning pipelines over semantic data stored in KGs.
+``SERE`` efficiently processes large-scale KGs by exploiting Spark's distributed computing capabilities. This framework enables the computation of embeddings in scenarios where it was previously infeasible due to large data volumes, reduced runtime, and improved memory requirements. The embeddings produced by ``SERE`` are fully integrated into the SparkKG-ML library, supporting end-to-end ML pipelines over semantic data stored in KGs.
