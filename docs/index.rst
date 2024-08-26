@@ -37,7 +37,7 @@ We hope this documentation proves to be a valuable resource as you explore the c
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Guides
+   :caption: SparkKG-ML
 
    gettingStarted
    dataAcquisition
@@ -52,6 +52,7 @@ We hope this documentation proves to be a valuable resource as you explore the c
    :hidden:
    :caption: SERE
 
+   sere
    kg 
    motifWalks
 
