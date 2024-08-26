@@ -5,12 +5,16 @@ Knowledge Graphs
 
 This module provides functionalities to manipulate and interact with RDF-based Knowledge Graphs (KG) using Apache Spark and GraphFrames. The KG class allows users to parse RDF data, create vertices and edges, and construct a GraphFrame for further analysis.
 
-The KG class in this module is designed to represent and manipulate a Knowledge Graph (KG) from RDF data. It provides methods to parse RDF data and convert it into a Spark-compatible format, as well as create a GraphFrame for graph-based operations.
+
+**Note**: To use this module, you need to install the `graphframes` library. `GraphFrames` is a package for Apache Spark that provides DataFrame-based Graphs. It is essential for creating and manipulating graphs in this module.
+
+For installation instructions, please refer to the official `GraphFrames` documentation: 
+`GraphFrames Installation Guide <https://graphframes.github.io/graphframes/docs/_site/index.html#installation>`_.
 
 Example Usage
 ------------------------
 
-*** Basic Usage: Creating a Knowledge Graph *** 
+**Basic Usage: Creating a Knowledge Graph**
 
 In this example, we will create a Knowledge Graph from an RDF file and convert it into a GraphFrame using the `KG` class.
 
@@ -35,7 +39,7 @@ In this example, we will create a Knowledge Graph from an RDF file and convert i
     # Display the vertices with the additional outgoing edges column
     graph_frame.vertices.show()
 
-*** Extra Feature: Directly Accessing Vertices and Edges DataFrames ***
+**Extra Feature: Directly Accessing Vertices and Edges DataFrames**
 
 For more advanced use cases, you can directly access the vertices and edges DataFrames using the `getKGasDataFrame` method. This is an optional step, as the `createKG` method already handles the creation of these DataFrames internally.
 
