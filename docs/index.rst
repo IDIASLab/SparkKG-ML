@@ -46,6 +46,12 @@ We hope this documentation proves to be a valuable resource as you explore the c
    featureSelection
    dataAugmentation
    semantification
+   
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: SERE
+
    kg 
    motifWalks
 
