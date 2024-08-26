@@ -6,7 +6,7 @@ Motif Walks
 This module provides functionalities for performing motif walks on a Knowledge Graph and extracting embeddings using the Word2Vec model. The MotifWalks class enables users to generate walks from specified entities, process these walks through motif structures, and train a Word2Vec model to obtain vector embeddings for entities in the graph.
 
 Example Usage
-=============
+----------------
 
 Step 1: Creating the GraphFrame
 -------------------------------

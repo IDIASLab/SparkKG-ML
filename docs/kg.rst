@@ -30,16 +30,18 @@ In this example, we will create a Knowledge Graph from an RDF file and convert i
     # Specify the location of the RDF file
     rdf_location = "path_to_your_rdf_file.rdf"
 
+    # Define predicates to skip during RDF parsing (optional)
+    skip_predicates = {"http://example.org/skipThisPredicate"}
+
     # Create an instance of the KG class
-    kg = KG(location=rdf_location, fmt='turtle', sparkSession=spark)
+    kg = KG(location=rdf_location, fmt='turtle', skip_predicates=skip_predicates, sparkSession=spark)
 
     # Create the GraphFrame
     graph_frame = kg.createKG()
 
-    # Display the vertices with the additional outgoing edges column
-    graph_frame.vertices.show()
+**Note:** The skip_predicates parameter allows you to exclude specific predicates from the RDF parsing process, which can help streamline your Knowledge Graph by ignoring irrelevant or unnecessary relationships.
 
-**Extra Feature: Directly Accessing Vertices and Edges DataFrames**
+**Directly Accessing Vertices and Edges DataFrames**
 
 For more advanced use cases, you can directly access the vertices and edges DataFrames using the `getKGasDataFrame` method. This is an optional step, as the `createKG` method already handles the creation of these DataFrames internally.
 
