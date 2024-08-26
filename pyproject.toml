@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sparkkgml"
-version = "0.1.12"
+version = "0.2"
 description = "From Knowledge Graphs to Machine Learning!"
 authors = ["IDIAS Lab"]
 license = "Apache License 2.0"
