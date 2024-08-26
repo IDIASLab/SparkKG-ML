@@ -10,14 +10,14 @@ The KG class in this module is designed to represent and manipulate a Knowledge 
 Example Usage
 ------------------------
 
-### Basic Usage: Creating a Knowledge Graph
+*** Basic Usage: Creating a Knowledge Graph *** 
 
 In this example, we will create a Knowledge Graph from an RDF file and convert it into a GraphFrame using the `KG` class.
 
 .. code-block:: python
 
     # Import the required libraries
-    from your_module_name import KG
+    from kg import KG
     from pyspark.sql import SparkSession
 
     # Initialize a Spark session (optional)
@@ -35,7 +35,7 @@ In this example, we will create a Knowledge Graph from an RDF file and convert i
     # Display the vertices with the additional outgoing edges column
     graph_frame.vertices.show()
 
-### Extra Feature: Directly Accessing Vertices and Edges DataFrames
+*** Extra Feature: Directly Accessing Vertices and Edges DataFrames ***
 
 For more advanced use cases, you can directly access the vertices and edges DataFrames using the `getKGasDataFrame` method. This is an optional step, as the `createKG` method already handles the creation of these DataFrames internally.
 
@@ -56,7 +56,4 @@ Conclusion
 The `KG` class in this module provides an efficient way to parse RDF data and create a Knowledge Graph in a Spark environment. It is highly customizable, allowing you to skip specific predicates and handle both local and remote RDF sources. By converting the RDF data into Spark DataFrames and leveraging GraphFrames, you can perform advanced graph-based operations on your Knowledge Graph.
 
 For further customization and advanced usage, please refer to the API documentation.
-
-This documentation should provide a comprehensive overview of the `KG` class, including its attributes, methods, and example usage. Let us know if you need any more details or adjustments!
-
 
