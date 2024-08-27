@@ -28,3 +28,5 @@ Files
 **Performance:** This file includes source codes for assessing and comparing the performance of SparkKG-ML and DistRDF2ML. It explores various factors like processing power, Spark cluster configuration, SPARQL complexity, dataset dimensions, and result set scale, examining how these factors influence the overall runtime performance.
 
 **Pipelines:** In this file, three pipelines are presented to compare the lines of code needed to achieve the same end goal – training a machine learning model with semantic data. The comparison is made between direct implementation in Python (without SparkKG-ML) and implementation in Scala using the SANSA Stack with the DistRDF2ML library.
+
+**SERE:**  The file comprises experiments for SERE.
