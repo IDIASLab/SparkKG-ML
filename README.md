@@ -1,3 +1,4 @@
+
 Welcome to the SparkKG-ML Documentation
 ====================================
 
@@ -5,7 +6,11 @@ Welcome to the documentation for **SparkKG-ML**, a Python library designed to fa
 
 SparkKG-ML is specifically built to bridge the gap between the semantic web data model and the powerful distributed computing capabilities of Apache Spark. By leveraging the flexibility of semantic web and the scalability of Spark, SparkKG-ML empowers you to extract meaningful insights and build robust machine learning models on semantic web and knowledge graph datasets.
 
-You can find the detailed documentaion of SparkKG-ML [here](https://sparkkgml.readthedocs.io/en/latest/index.html#). This documentation serves as a comprehensive guide to understanding and effectively utilizing SparkKG-ML. Here, you will find detailed explanations of the library's core concepts, step-by-step tutorials to get you started, and a rich collection of code examples to illustrate various use cases.
+You can find the detailed documentaion of SparkKG-ML [here](https://sparkkgml.readthedocs.io/en/latest/index.html#). This documentation serves as a comprehensive guide to understanding and effectively utilizing SparkKG-ML. Here, you will find detailed explanations of the library's core concepts, step-by-step tutorials to get you started, and a rich collection of code examples to illustrate various use cases. 
+
+Now you can also find  ``SERE`` ( **S**calable and Distributed Framework for Unsupervised 
+**E**mbeddings Computation on La**R** ge-scale Knowl**E**dge Graphs) in our [documentation](https://sparkkgml.readthedocs.io/en/latest/sere.html). 
+
 
 **Key Features of SparkKG-ML:**
 
@@ -111,6 +116,17 @@ Let's start with a basic example, we will retrieve data from a SPARQL endpoint a
     +------------------------------------------+
 
 The ``getDataFrame`` function will query the data from the specified SPARQL endpoint and return a Spark DataFrame that you can use for further analysis or machine learning tasks.
+
+SERE
+============
+
+``SERE`` is a scalable and distributed embedding framework designed for large-scale KGs (KGs), leveraging the distributed computing capabilities of Apache Spark. The framework enables the extraction of walks over a KG and then creates embeddings from these walks, fully implemented in Spark, making them ready for integration into Machine Learning (ML) pipelines.
+
+KGs store RDF data in a graph format, where entities are linked by relations. To compute RDF data embeddings, the graph representation is converted into sequences of entities. These sequences are processed by neural language models, such as Word2Vec, treating them like sentences composed of words. This allows the model to represent each entity in the RDF graph as a vector of numerical values in a latent feature space.
+
+``SERE`` allows the computation of embeddings over very large KGs in scenarios where such embeddings were previously not feasible due to a significantly lower runtime and improved memory requirements. ``SERE`` is open-source, well-documented, and fully integrated into the SparkKG-ML Python library, which offers end-to-end ML pipelines over semantic data stored in KGs directly in Python.
+
+Check out for more detailed [documentation](https://sparkkgml.readthedocs.io/en/latest/sere.html).
 
 Evaluation
 ==========
