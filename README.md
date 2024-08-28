@@ -138,4 +138,9 @@ License
 
 SparkKG-ML was created by [IDIAS Lab](http://www.cs.albany.edu/~cchelmis/ideaslab.html). It is licensed under the terms of the Apache License 2.0 license.
 
+Acknowledgement
+=================
+
+This material is based upon work supported by the National Science Foundation under Grants No. CRII:III-1850097 and ECCS-1737443. This work was supported in part by Oracle Cloud credits and related resources provided by the Oracle for Research program.
+
 
