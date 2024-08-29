@@ -61,151 +61,139 @@ class MotifWalks:
 
         return motif
 
-    def struct_to_list(self, df):
+    def struct_to_list(self, df, walktype):
         """
-        Adjusts the DataFrame to handle vertices and extract the 'relationship' from edges.
+        Transforms the struct type in a DataFrame to a list of strings based on the specified walk type.
 
         Parameters:
-            df (DataFrame): Input DataFrame.
+            df (DataFrame): Input DataFrame containing struct types.
+            walktype (str): The type of walk to perform. Can be 'BFS', 'entity', or 'predicate'.
 
         Returns:
-            DataFrame: Transformed DataFrame with structured lists.
+            DataFrame: Transformed DataFrame with each row represented as a list of strings.
         """
-        # Broadcast the dictionary so every node can access it
-        broadcasted_hashMap = spark.sparkContext.broadcast(self.kg_instance.key_to_vertex_hashMap)
 
-        # Define a UDF that converts a struct to a list, focusing on 'id' for vertices and 'relationship' for edges
-        def to_list(row):
-            # Use the value from the broadcasted dictionary
-            hashMap = broadcasted_hashMap.value
-            result = []
-            for col in row.__fields__:
-                attribute = getattr(row, col)
-                if hasattr(attribute, 'id'):  # Handling for vertices
-                    result.append(hashMap.get(attribute.id))
-                elif hasattr(attribute, 'relationship'):  # Handling for edges, focusing on 'relationship'
-                    # Simply append the relationship; adjust if you need to format or map this value further
-                    result.append(hashMap.get(attribute.relationship))  # Convert to string if necessary
-                else:
-                    # Fallback for any unexpected structure
-                    result.append("default_handling_for_unexpected_structure")
-            return result
-
-        to_list_udf = f.udf(to_list, ArrayType(StringType()))
-
-        combined_df = df.select(f.struct(*[f.col(name) for name in df.columns]).alias("combined"))
-        paths_df = combined_df.select(to_list_udf("combined").alias("paths"))
-
-        return paths_df
-    
-    
-    def struct_to_list2(self, df):
-        """
-        Adjusts the DataFrame to handle transform the struct type to a list of strings
-
-        Parameters:
-            df (DataFrame): Input DataFrame.
-
-        Returns:
-            DataFrame: Transformed DataFrame with structured lists.
-        """
-        # Broadcast the dictionary so every node can access it
+        # Broadcast the dictionary (hashMap) so every node in the Spark cluster can access it.
         broadcasted_hashMap = self.sparkSession.sparkContext.broadcast(self.kg_instance.key_to_vertex_hashMap)
 
-        # Define a UDF that converts a struct to a list, exctraction the info from edges
+        # Define a UDF that converts a struct to a list of strings.
         def to_list(row):
-            # Use the value from the broadcasted dictionary
+            # Access the broadcasted hashMap value
             hashMap = broadcasted_hashMap.value
-            result = []
-            fields = row.__fields__
+            result = []  # Initialize an empty list to store the result
+            fields = row.__fields__  # Get the fields (columns) of the struct
+
+            # Iterate over each field in the struct
             for i in range(len(fields)):
-                if i % 2 != 0:  # Check if the index is odd
-                    #check of index is 1. For index 1 add src,relationship,dst. For rest only, relationship,dst
-                    if i==1: 
-                        col = fields[i]
-                        attribute = getattr(row, col)
-                        result.append(hashMap.get(attribute.src))
-                        result.append(hashMap.get(attribute.relationship))
-                        result.append(hashMap.get(attribute.dst))
+                if i % 2 != 0:  # Check if the index is odd (which corresponds to certain fields we're interested in)
+                    col = fields[i]
+                    attribute = getattr(row, col)  # Get the attribute (value) of the current field
+                    
+                    # Handle the case where the index is 1 (typically the first relevant field)
+                    if i == 1:
+                        if walktype == 'BFS':
+                            # For BFS: Add source, relationship, and destination to the result
+                            result.append(hashMap.get(attribute.src))
+                            result.append(hashMap.get(attribute.relationship))
+                            result.append(hashMap.get(attribute.dst))
+                        elif walktype == 'entity':
+                            # For entity: Add source and destination to the result
+                            result.append(hashMap.get(attribute.src))
+                            result.append(hashMap.get(attribute.dst))
+                        elif walktype == 'predicate':
+                            # For predicate: Add source and relationship to the result
+                            result.append(hashMap.get(attribute.src))
+                            result.append(hashMap.get(attribute.relationship))
                     else:
-                        col = fields[i]
-                        attribute = getattr(row, col)
-                        result.append(hashMap.get(attribute.relationship))
-                        result.append(hashMap.get(attribute.dst))
-                        
-            return result
+                        # Handle other odd indices
+                        if walktype == 'BFS':
+                            # For BFS: Add relationship and destination to the result
+                            result.append(hashMap.get(attribute.relationship))
+                            result.append(hashMap.get(attribute.dst))
+                        elif walktype == 'entity':
+                            # For entity: Add destination to the result
+                            result.append(hashMap.get(attribute.dst))
+                        elif walktype == 'predicate':
+                            # For predicate: Add relationship to the result
+                            result.append(hashMap.get(attribute.relationship))
+            
+            return result  # Return the resulting list
 
-
+        # Register the UDF with the correct return type (Array of Strings)
         to_list_udf = f.udf(to_list, ArrayType(StringType()))
 
+        # Combine all columns into a single struct column for easier processing
         combined_df = df.select(f.struct(*[f.col(name) for name in df.columns]).alias("combined"))
+
+        # Apply the UDF to transform the struct column into a list of strings
         paths_df = combined_df.select(to_list_udf("combined").alias("paths"))
 
-        return paths_df
+        return paths_df  # Return the DataFrame with the transformed lists
+    
 
-
-    def motif_walk(self, graph, depth):
+    def motif_walk(self, graph, depth, walktype='BFS'):
         """
         Conducts motif walks on the given graph for the specified depth. This function 
         processes each depth level separately, allowing for more granular control over 
         path filtering, especially based on vertex properties like outgoing edges.
-    
+
         Parameters:
             graph (GraphFrame): The graph on which to perform motif walks. The vertices 
                                 should have a 'has_outgoing_edge' column to facilitate 
                                 filtering.
             depth (int): The maximum depth (number of steps) of the motif walks.
-    
+            walktype (str): The type of walk to perform, such as 'BFS','predicate','entity'. Default is 'BFS'.
+
         Returns:
             DataFrame: A DataFrame containing the paths resulting from the motif walks, 
             with one row per path.
-    
+
         Notes:
             - This function creates and processes motifs for each depth level from 1 to 
-              the specified maximum depth, providing more refined filtering options.
+            the specified maximum depth, providing more refined filtering options.
             - It allows filtering of paths based on whether the last vertex in the path 
-              has outgoing edges, thereby potentially terminating paths early.
+            has outgoing edges, thereby potentially terminating paths early.
         """
-    
+
         # Define the schema for the resulting DataFrame, which will contain an array of strings
         schema = StructType([StructField("paths", ArrayType(StringType()))])
         
         # Create an empty DataFrame with the defined schema to store the resulting paths
         paths_df = self.sparkSession.createDataFrame([], schema)
-    
+        
         # Initialize an empty list to collect DataFrames from each depth iteration
         dataframes_list = []
-    
+        
         # Loop through each depth level from 1 to the specified maximum depth
         for i in range(1, depth + 1):
             # Create the motif string based on the current depth
             motif = self.create_motif_string(i)
-    
+            
             # Find motifs in the graph using the generated motif string
             results = graph.find(motif)
-    
+            
             # Filter the walks that start with desired entities, using the pre-hashed entities
             filtered_results = results.filter(f.col("v0.id").isin(self.hashed_entities))
-    
+            
             # If the current depth is less than the maximum depth, filter out paths 
             # where the last vertex has outgoing edges (for early termination)
             if i < depth:
                 filtered_results = filtered_results.filter(~f.col(f"v{i}.has_outgoing_edge"))
-    
+            
             # Transform the filtered motifs into a DataFrame with a single column 
             # representing the path structure, formatted for Word2Vec processing
-            new_df = self.struct_to_list2(filtered_results)
-    
+            new_df = self.struct_to_list(filtered_results, walktype)
+            
             # Append the resulting DataFrame to the list of DataFrames
             dataframes_list.append(new_df)
-    
+        
         # Union all collected DataFrames from the list into a single DataFrame
         paths_df = reduce(DataFrame.union, dataframes_list)
-    
+        
         return paths_df
 
 
-    def motif_walk_depth(self, graph, depth):
+    def motif_walk_depth(self, graph, depth, walktype='BFS'):
         """
         Conducts motif walks on the given graph for the specified depth. This function 
         performs a motif walk across the entire specified depth in one go and returns 
@@ -235,7 +223,7 @@ class MotifWalks:
     
         # Transform the structured motifs into a DataFrame with a single column 
         # representing the path structure, formatted for Word2Vec processing
-        paths_df = self.struct_to_list2(filtered_results)
+        paths_df = self.struct_to_list(filtered_results,walktype)
     
         return paths_df
 

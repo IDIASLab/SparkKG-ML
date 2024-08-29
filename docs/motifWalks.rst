@@ -38,7 +38,8 @@ Step 2: Conducting Motif Walks with `motif_walk`
 
 Once the graph is ready, you can perform motif walks on it using the `motif_walk` method. Motif walks generate paths on the graph starting from specified entities. These paths can then be used for various downstream tasks, such as training a Word2Vec model to extract embeddings.
 
-The `motif_walk` function allows you to specify the depth of the walk, which controls how many steps (or hops) the walk will take from each starting entity. 
+The `motif_walk` function allows you to specify the depth of the walk, which controls how many steps (or hops) the walk will take from each starting entity. It also supports three different walk types: BFS, entity, and predicate walks.
+
 
 .. code-block:: python
 
@@ -49,8 +50,7 @@ The `motif_walk` function allows you to specify the depth of the walk, which con
     motif_walks = MotifWalks(kg_instance=kg, entities=entities, sparkSession=spark)
 
     # Perform motif walks with a specified depth
-    depth = 3  # This controls how deep each walk goes
-    paths_df = motif_walks.motif_walk(graph_frame, depth)
+    paths_df = motif_walks.motif_walk(graph_frame, depth=3, walktype='BFS')
 
     # Display the resulting paths
     paths_df.show()
@@ -60,6 +60,8 @@ The `motif_walk` function allows you to specify the depth of the walk, which con
     - The `entities` list specifies the starting points for the motif walks.
 
     - The `depth` parameter determines the maximum number of steps in each walk.
+
+    - The `walktype` parameter supports three different walk types: BFS, entity, and predicate walks.
 
     - The `motif_walk` method processes the graph and returns a DataFrame (`paths_df`) containing the generated paths.
 
