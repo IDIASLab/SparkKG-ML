@@ -146,7 +146,7 @@ This material is based upon work supported by the National Science Foundation un
 Referencing
 =================
 
-For referencing, please use:
+For referencing SparkKG-ML, please use the citation below. For SERE, it will be published soon—stay tuned!
 
 ```bibtex
 @InProceedings{Gergin2025,
