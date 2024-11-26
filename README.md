@@ -143,4 +143,23 @@ Acknowledgement
 
 This material is based upon work supported by the National Science Foundation under Grants No. CRII:III-1850097 and ECCS-1737443. This work was supported in part by Oracle Cloud credits and related resources provided by the Oracle for Research program.
 
+Referencing
+=================
 
+For referencing, please use:
+
+```bibtex
+@InProceedings{Gergin2025,
+  author    = {Gergin, Bedirhan and Chelmis, Charalampos},
+  title     = {SparkKG-ML: A Library to Facilitate End-to-End Large-Scale Machine Learning Over Knowledge Graphs in Python},
+  booktitle = {The Semantic Web -- ISWC 2024},
+  year      = {2025},
+  editor    = {Demartini, Gianluca and others},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {15233},
+  pages     = {3--19},
+  publisher = {Springer, Cham},
+  isbn      = {978-3-031-77847-6},
+  doi       = {10.1007/978-3-031-77847-6_1},
+  url       = {https://doi.org/10.1007/978-3-031-77847-6_1}
+}
