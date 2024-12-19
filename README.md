@@ -1,3 +1,6 @@
+[![PyPI Downloads](https://static.pepy.tech/badge/sparkkgml)](https://pepy.tech/projects/sparkkgml)
+![GitHub Stars](https://img.shields.io/github/stars/IDIASLab/SparkKG-ML?style=social)
+![Python Versions](https://img.shields.io/pypi/pyversions/sparkkgml)
 
 Welcome to the SparkKG-ML Documentation
 ====================================
