@@ -149,10 +149,10 @@ This material is based upon work supported by the National Science Foundation un
 Referencing
 =================
 
-For referencing SparkKG-ML, please use the citation below. For SERE, it will be published soon—stay tuned!
+For referencing SparkKG-ML, please use the citation below. 
 
 ```bibtex
-@InProceedings{Gergin2025,
+@InProceedings{sparkkgml,
   author    = {Gergin, Bedirhan and Chelmis, Charalampos},
   title     = {SparkKG-ML: A Library to Facilitate End-to-End Large-Scale Machine Learning Over Knowledge Graphs in Python},
   booktitle = {The Semantic Web -- ISWC 2024},
@@ -166,3 +166,17 @@ For referencing SparkKG-ML, please use the citation below. For SERE, it will be 
   doi       = {10.1007/978-3-031-77847-6_1},
   url       = {https://doi.org/10.1007/978-3-031-77847-6_1}
 }
+```
+
+For SERE, please use the citation below. 
+
+```bibtex
+@INPROCEEDINGS{SERE,
+  author={Gergin, Bedirhan and Chelmis, Charalampos},
+  booktitle={2024 IEEE International Conference on Big Data (BigData)}, 
+  title={Large–Scale Knowledge Graph Embeddings in Apache Spark}, 
+  year={2024},
+  pages={243-251},
+  doi={10.1109/BigData62323.2024.10825006}
+}
+```
